@@ -12,8 +12,7 @@ public class Player : MonoBehaviour
 
     //---
 
-    [SerializeField]
-    private Transform[] groundCheckPoints;
+    [SerializeField] private Transform[] groundCheckPoints;
 
     [SerializeField]
     private LayerMask groundLayer;
