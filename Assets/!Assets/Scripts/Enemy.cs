@@ -7,8 +7,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _horizontalSpeed;
     [Space(5)]
     [SerializeField] private Transform _attackPoint;
+    [SerializeField] private Transform _wallPatrolPoint;
     [SerializeField] private Transform _groundPatrolPoint;
-    [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private LayerMask _wallLayer;
 
     private Rigidbody2D _thisRB;
     private Animator _thisAnim;
@@ -25,8 +27,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool groundCheck = Physics2D.OverlapCircle(_groundPatrolPoint.position,0.25f,_layerMask);
-        if (groundCheck == false)
+        bool groundCheck = Physics2D.OverlapCircle(_groundPatrolPoint.position,0.25f,_groundLayer);
+        bool wallCheck = Physics2D.OverlapCircle(_wallPatrolPoint.position,0.25f,_wallLayer);
+
+        // if point overlap with wall or if it doesnt overlap with ground entres to flip
+        if (groundCheck == false || wallCheck == true)
         {
             HorizontalFlip();
         }
@@ -45,7 +50,9 @@ public class Enemy : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.blue;
         Gizmos.DrawSphere(_groundPatrolPoint.position, 0.25f);
+        Gizmos.DrawSphere(_wallPatrolPoint.position, 0.25f);
         Gizmos.DrawSphere(_attackPoint.position, 0.25f);
     }
 
