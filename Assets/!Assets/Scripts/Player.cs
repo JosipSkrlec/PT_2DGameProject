@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private bool _isSwinging;
+    public bool SwingEnabled = false;
     [SerializeField] private float horizontalSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private Transform groundCheckPoints;
@@ -20,11 +20,6 @@ public class Player : MonoBehaviour
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
-    }
-
-    void Start()
-    {
-        _isSwinging = false;
     }
 
     void Update()
@@ -62,6 +57,15 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             jump = true;
+        }
+
+        if (Input.GetKey(KeyCode.V))
+        {
+            SwingEnabled = true;
+        }
+        else
+        {
+            SwingEnabled = false;
         }
         //myAnimator.SetFloat("horizontalSpeed", Mathf.Abs(horizontalInput * horizontalSpeed));
     }
