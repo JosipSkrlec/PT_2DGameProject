@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private bool _isSwinging;
     [SerializeField] private float horizontalSpeed;
+    [SerializeField] private float jumpForce;
     [SerializeField] private Transform groundCheckPoints;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float jumpForce;
 
     private Collider2D[] groundCheckResults = new Collider2D[1];
     private Rigidbody2D myRigidbody2D;
@@ -23,7 +24,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-
+        _isSwinging = false;
     }
 
     void Update()
