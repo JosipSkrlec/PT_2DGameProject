@@ -26,11 +26,28 @@ public class Swing : MonoBehaviour
         if (overlayColliders != null)
         {
             PlayerInside();
-            if (overlayColliders.GetComponent<Player>().SwingEnabled)
+            Player player = overlayColliders.GetComponent<Player>();
+
+            if (player.SwingEnabled)
             {
-                Debug.Log("Player Connected to swing point!");
+                if (player.ConnectedToSwingPoint == true)
+                {
+                    return;
+                }
+                player.ConnectedToSwingPoint = true;
+                float distance = Vector2.Distance(overlayColliders.transform.position, transform.position);
+                _distanceJoint2D.distance = distance;
+                //Debug.Log("Player Connected to swing point!");
                 _distanceJoint2D.connectedBody = overlayColliders.transform.GetComponent<Rigidbody2D>();
-                StartCoroutine(StopSwing());
+                // automatic disconnection!
+                //StartCoroutine(StopSwing());
+            }
+            else
+            {
+                //_distanceJoint2D.enabled = false;
+                player.ConnectedToSwingPoint = false;
+                _distanceJoint2D.connectedBody = null;
+                //Debug.Log("Player Disconnected to swing point!");
             }
         }
         else

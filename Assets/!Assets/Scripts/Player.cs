@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public bool SwingEnabled = false;
+    public bool ConnectedToSwingPoint = false;
     [SerializeField] private float horizontalSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private Transform groundCheckPoints;
@@ -35,7 +36,7 @@ public class Player : MonoBehaviour
         //    HorizontalFlip();
         //}
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.A) && ConnectedToSwingPoint == false || Input.GetKey(KeyCode.D) && ConnectedToSwingPoint == false)
         {
             if (IsFacingBackwards(horizontalInput))
             {
@@ -49,16 +50,17 @@ public class Player : MonoBehaviour
             myAnimator.SetTrigger("Idle");
         }
 
-        if (Input.GetKey(KeyCode.C) && CheckGround())
+        if (Input.GetKey(KeyCode.C) && CheckGround() && ConnectedToSwingPoint == false)
         {
             myAnimator.SetTrigger("Attack");
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && ConnectedToSwingPoint == false)
         {
             jump = true;
         }
 
+        // swing mechanics
         if (Input.GetKey(KeyCode.V))
         {
             SwingEnabled = true;
