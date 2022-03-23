@@ -4386,6 +4386,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2062037218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2062037219}
+  m_Layer: 10
+  m_Name: AgroPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2062037219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062037218}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 28.8, y: 6.56, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4000012040696546}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2102883900
 GameObject:
   m_ObjectHideFlags: 0
@@ -4801,16 +4831,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d65a629a7b615ba49ae3a295d576ab57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _horizontalSpeed: 2
+  _isPatrolling: 1
+  _walkSpeed: 1
   _attackPoint: {fileID: 1380959401}
   _wallPatrolPoint: {fileID: 514924664}
   _groundPatrolPoint: {fileID: 1032664562}
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
   _wallLayer:
     serializedVersion: 2
     m_Bits: 128
+  _agroDistanceTransform: {fileID: 2062037219}
 --- !u!1 &1000012000500414
 GameObject:
   m_ObjectHideFlags: 0
@@ -5411,13 +5446,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000011488824478}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 19.52, y: -3.702, z: 0}
+  m_LocalPosition: {x: 19.31, y: -3.702, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children:
   - {fileID: 4000014489738948}
   - {fileID: 1380959401}
   - {fileID: 1032664562}
   - {fileID: 514924664}
+  - {fileID: 2062037219}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
