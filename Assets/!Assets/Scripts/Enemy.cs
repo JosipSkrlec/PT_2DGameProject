@@ -5,7 +5,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private bool _isPatrolling = true;
+    [SerializeField] private bool _isAttacking = false;
     [SerializeField] private float _walkSpeed;
+    [SerializeField] private float _agroDistance;
     [Space(5)]
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private Transform _wallPatrolPoint;
@@ -13,11 +15,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private LayerMask _wallLayer;
-    [Space(5)]
-    [SerializeField] private Transform _agroDistanceTransform;
+    //[Space(5)]
+    //[SerializeField] private Transform _agroDistanceTransform;
 
     private Rigidbody2D _thisRB;
     private Animator _thisAnim;
+    private RaycastHit objectHit;
 
     // Start is called before the first frame update
     void Start()
@@ -45,12 +48,28 @@ public class Enemy : MonoBehaviour
             HorizontalFlip();
         }
 
-        var test = Physics2D.Raycast(transform.position, transform.right, _playerLayer);
-        Debug.Log(test);
-        if (test == true)
+        var agroRaycast = Physics2D.Raycast(
+            transform.position + new Vector3(0.0f, 1.0f, 0.0f),
+            transform.position + new Vector3(_agroDistance, 1.0f, 0.0f),
+            _playerLayer
+        );
+
+        if (agroRaycast == true)
         {
-            Debug.Log("FOUND " + test.transform.name);
+            Debug.Log("FOUND " + agroRaycast.transform.name);
         }
+
+        // old code!
+        //Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        //Debug.DrawRay(transform.position, fwd * 50, Color.green);
+        //if (Physics.Raycast(transform.position, fwd, out objectHit, 50))
+        //{
+        //    //do something if hit object ie
+        //    if (objectHit.transform.name == "Player")
+        //    {
+        //        Debug.Log("Close to enemy");
+        //    }
+        //}
     }
 
     private void FixedUpdate()
@@ -65,6 +84,7 @@ public class Enemy : MonoBehaviour
 
     private void HorizontalFlip()
     {
+        _agroDistance *= -1; // to change the direction of raycast!
         transform.Rotate(0, 180, 0);
     }
 
@@ -91,7 +111,9 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawSphere(_attackPoint.position, 0.25f);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position+ new Vector3(0.0f, 1.0f, 0.0f), _agroDistanceTransform.position);
+        Gizmos.DrawLine(transform.position+ new Vector3(0.0f, 1.0f, 0.0f), transform.position + new Vector3(-_agroDistance, 1.0f, 0.0f));
+
+
 
     }
 

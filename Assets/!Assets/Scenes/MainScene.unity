@@ -1453,7 +1453,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &607936264
 GameObject:
@@ -3107,7 +3107,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1263179656
 GameObject:
@@ -3658,7 +3658,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1596627798
 GameObject:
@@ -4832,7 +4832,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isPatrolling: 1
+  _isAttacking: 0
   _walkSpeed: 1
+  _agroDistance: 4
   _attackPoint: {fileID: 1380959401}
   _wallPatrolPoint: {fileID: 514924664}
   _groundPatrolPoint: {fileID: 1032664562}
@@ -4845,7 +4847,6 @@ MonoBehaviour:
   _wallLayer:
     serializedVersion: 2
     m_Bits: 128
-  _agroDistanceTransform: {fileID: 2062037219}
 --- !u!1 &1000012000500414
 GameObject:
   m_ObjectHideFlags: 0
@@ -7994,12 +7995,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a015630100854f3418a823a6a757eb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _health: 500
   SwingEnabled: 0
   ConnectedToSwingPoint: 0
-  horizontalSpeed: 5
-  jumpForce: 750
-  groundCheckPoints: {fileID: 675075659}
-  groundLayer:
+  _walkSpeed: 5
+  _jumpForce: 750
+  _groundCheckPoints: {fileID: 675075659}
+  _groundLayer:
     serializedVersion: 2
     m_Bits: 64
 --- !u!50 &5939731890553794293

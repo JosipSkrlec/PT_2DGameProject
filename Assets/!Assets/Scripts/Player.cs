@@ -1,15 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private int _health;
     public bool SwingEnabled = false;
     public bool ConnectedToSwingPoint = false;
-    [SerializeField] private float horizontalSpeed;
-    [SerializeField] private float jumpForce;
-    [SerializeField] private Transform groundCheckPoints;
-    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float _walkSpeed;
+    [SerializeField] private float _jumpForce;
+    [SerializeField] private Transform _groundCheckPoints;
+    [SerializeField] private LayerMask _groundLayer;
 
     private Collider2D[] groundCheckResults = new Collider2D[1];
     private Rigidbody2D myRigidbody2D;
@@ -43,7 +45,7 @@ public class Player : MonoBehaviour
                 HorizontalFlip();
             }
             myAnimator.SetTrigger("Walk");
-            myRigidbody2D.velocity = new Vector2(horizontalInput * horizontalSpeed, myRigidbody2D.velocity.y);
+            myRigidbody2D.velocity = new Vector2(horizontalInput * _walkSpeed, myRigidbody2D.velocity.y);
         }
         else
         {
@@ -59,9 +61,8 @@ public class Player : MonoBehaviour
         {
             jump = true;
         }
-
         // swing mechanics
-        if (Input.GetKey(KeyCode.V))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             SwingEnabled = true;
         }
@@ -86,7 +87,7 @@ public class Player : MonoBehaviour
 
     private bool CheckGround()
     {
-        if (Physics2D.OverlapCircle(groundCheckPoints.position, 0.5f, groundLayer))
+        if (Physics2D.OverlapCircle(_groundCheckPoints.position, 0.5f, _groundLayer))
         {
             return true;
         }
@@ -98,7 +99,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        myRigidbody2D.AddForce(Vector2.up * jumpForce);
+        myRigidbody2D.AddForce(Vector2.up * _jumpForce);
     }
 
     private void HorizontalFlip()
@@ -113,6 +114,10 @@ public class Player : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawSphere(groundCheckPoints.position, 0.5f);
+        if (_groundCheckPoints == null)
+        {
+            return;
+        }
+        Gizmos.DrawSphere(_groundCheckPoints.position, 0.5f);
     }
 }
