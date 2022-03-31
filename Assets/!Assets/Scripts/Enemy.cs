@@ -54,10 +54,10 @@ public class Enemy : MonoBehaviour
             _playerLayer
         );
 
-        if (agroRaycast == true)
-        {
-            Debug.Log("FOUND " + agroRaycast.transform.name);
-        }
+        //if (agroRaycast == true)
+        //{
+        //    Debug.Log("FOUND " + agroRaycast.transform.name);
+        //}
 
         // old code!
         //Vector3 fwd = transform.TransformDirection(Vector3.forward);
