@@ -8,13 +8,9 @@ public class SwingWithRope : MonoBehaviour
     [SerializeField] private bool _connectionEnabled = true;
     [SerializeField] private float _swingConnectionRadius;
     [SerializeField] private LayerMask _playerMask;
-
     [SerializeField] private SpriteRenderer _spriteRenderer;
-
     [SerializeField] private DistanceJoint2D _distanceJoint2D;
-
     [SerializeField] private LineRenderer _lineRenderer; // izgled line-a koji povezuje playera i grab point kada su konektani!
-
 
     private void Start()
     {
@@ -42,6 +38,7 @@ public class SwingWithRope : MonoBehaviour
             {
                 if (player.ConnectedToSwingPoint == true)
                 {
+                    // TODO - do some offset to player position!
                     _lineRenderer.SetPosition(1, player.transform.position);
 
                     return;
