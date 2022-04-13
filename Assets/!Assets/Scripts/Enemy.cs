@@ -21,10 +21,12 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D _thisRB;
     private Animator _thisAnim;
     private RaycastHit objectHit;
+    private bool _attackDelay;
 
     // Start is called before the first frame update
     void Start()
     {
+        _attackDelay = false;
         _thisAnim = GetComponent<Animator>();
         _thisRB = GetComponent<Rigidbody2D>();
 
@@ -47,6 +49,7 @@ public class Enemy : MonoBehaviour
             HorizontalFlip();
         }
 
+        // raycast fron enemy to forward!
         var agroRaycast = Physics2D.Linecast(
             transform.position + new Vector3(0.0f, 1.0f, 0.0f),
             transform.position + new Vector3(-_agroDistance, 1.0f, 0.0f),
@@ -55,13 +58,35 @@ public class Enemy : MonoBehaviour
 
         if (agroRaycast == true)
         {
-            Debug.Log("FOUND " + agroRaycast.transform.name);
-            _walkSpeed = 1.5f;
+            _walkSpeed = 2.0f;
+            _isAttacking = true;
         }
         else
         {
             _walkSpeed = 1.0f;
+            _isAttacking = false;
         }
+
+        if (_isAttacking == true)
+        {
+            bool attack = Physics2D.OverlapCircle(_attackPoint.position, 0.25f, _playerLayer);
+
+            // TODO - fix enemy attack!...
+            if (attack == true && _attackDelay == true)
+            {
+                _attackDelay = false;
+                _thisAnim.SetTrigger("Attack");
+                StartCoroutine(AttackDelay());
+            }
+        }
+    }
+
+    private IEnumerator AttackDelay()
+    {
+        yield return new WaitForSeconds(0.5f); // TODO - do something better here !
+
+        _attackDelay = true;
+
     }
 
     private void FixedUpdate()
@@ -92,6 +117,7 @@ public class Enemy : MonoBehaviour
         _thisAnim.SetTrigger("Walk");
 
         _isPatrolling = true;
+
     }
 
     private void OnDrawGizmosSelected()
@@ -104,8 +130,6 @@ public class Enemy : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position+ new Vector3(0.0f, 1.0f, 0.0f), transform.position + new Vector3(-_agroDistance, 1.0f, 0.0f));
-
-
 
     }
 
