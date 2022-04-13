@@ -41,35 +41,27 @@ public class Enemy : MonoBehaviour
 
         bool groundCheck = Physics2D.OverlapCircle(_groundPatrolPoint.position,0.25f,_groundLayer);
         bool wallCheck = Physics2D.OverlapCircle(_wallPatrolPoint.position,0.25f,_wallLayer);
-
         // if point overlap with wall or if it doesnt overlap with ground entres to flip
         if (groundCheck == false || wallCheck == true)
         {
             HorizontalFlip();
         }
 
-        var agroRaycast = Physics2D.Raycast(
+        var agroRaycast = Physics2D.Linecast(
             transform.position + new Vector3(0.0f, 1.0f, 0.0f),
-            transform.position + new Vector3(_agroDistance, 1.0f, 0.0f),
+            transform.position + new Vector3(-_agroDistance, 1.0f, 0.0f),
             _playerLayer
         );
 
-        //if (agroRaycast == true)
-        //{
-        //    Debug.Log("FOUND " + agroRaycast.transform.name);
-        //}
-
-        // old code!
-        //Vector3 fwd = transform.TransformDirection(Vector3.forward);
-        //Debug.DrawRay(transform.position, fwd * 50, Color.green);
-        //if (Physics.Raycast(transform.position, fwd, out objectHit, 50))
-        //{
-        //    //do something if hit object ie
-        //    if (objectHit.transform.name == "Player")
-        //    {
-        //        Debug.Log("Close to enemy");
-        //    }
-        //}
+        if (agroRaycast == true)
+        {
+            Debug.Log("FOUND " + agroRaycast.transform.name);
+            _walkSpeed = 1.5f;
+        }
+        else
+        {
+            _walkSpeed = 1.0f;
+        }
     }
 
     private void FixedUpdate()
@@ -118,3 +110,16 @@ public class Enemy : MonoBehaviour
     }
 
 }
+
+
+// old code!
+//Vector3 fwd = transform.TransformDirection(Vector3.forward);
+//Debug.DrawRay(transform.position, fwd * 50, Color.green);
+//if (Physics.Raycast(transform.position, fwd, out objectHit, 50))
+//{
+//    //do something if hit object ie
+//    if (objectHit.transform.name == "Player")
+//    {
+//        Debug.Log("Close to enemy");
+//    }
+//}
