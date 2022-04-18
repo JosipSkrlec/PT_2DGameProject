@@ -15,13 +15,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private LayerMask _wallLayer;
-    //[Space(5)]
-    //[SerializeField] private Transform _agroDistanceTransform;
 
+    #region private Fields
     private Rigidbody2D _thisRB;
     private Animator _thisAnim;
     private RaycastHit objectHit;
     private bool _attackDelay;
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()
