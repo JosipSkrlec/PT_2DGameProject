@@ -166,6 +166,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Take damage to player, damage = " + damage);
         _health -= (int)damage;
 
+        // TODO - do life taking if player health reaches < -0.0f
+
         PlayerUIController.Instance.UpdatePlayerHealthUI(_playerMaxHealth,_health);
     }
 

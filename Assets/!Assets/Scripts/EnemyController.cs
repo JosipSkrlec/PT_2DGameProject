@@ -47,6 +47,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // TODO - check if i can refractor this part!
         bool enemyCheck = Physics2D.OverlapCircle(_wallPatrolPoint.position, 0.25f, _enemyLayer);
         bool groundCheck = Physics2D.OverlapCircle(_groundPatrolPoint.position, 0.25f, _groundLayer);
         bool wallCheck = Physics2D.OverlapCircle(_wallPatrolPoint.position, 0.25f, _wallLayer);
