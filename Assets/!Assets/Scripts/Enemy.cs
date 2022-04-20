@@ -6,8 +6,10 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private bool _isPatrolling = true;
     [SerializeField] private bool _isAttacking = false;
-    [SerializeField] private float _walkSpeed;
-    [SerializeField] private float _agroDistance;
+    [Space(5)]
+    [SerializeField] private float _walkSpeed = 1.0f;
+    [SerializeField] private float _agroDistance = 4.0f;
+    [SerializeField] private float _attackDelay = 2.0f;
     [Space(5)]
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private Transform _wallPatrolPoint;
@@ -20,14 +22,14 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D _thisRB;
     private Animator _thisAnim;
     private RaycastHit objectHit;
-    private bool _attackDelay;
+    private bool _readyToAttack;
 
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        _attackDelay = false;
+        _readyToAttack = true;
         _thisAnim = GetComponent<Animator>();
         _thisRB = GetComponent<Rigidbody2D>();
 
@@ -37,13 +39,8 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_isPatrolling == false)
-        {
-            return;
-        }
-
-        bool groundCheck = Physics2D.OverlapCircle(_groundPatrolPoint.position,0.25f,_groundLayer);
-        bool wallCheck = Physics2D.OverlapCircle(_wallPatrolPoint.position,0.25f,_wallLayer);
+        bool groundCheck = Physics2D.OverlapCircle(_groundPatrolPoint.position, 0.25f, _groundLayer);
+        bool wallCheck = Physics2D.OverlapCircle(_wallPatrolPoint.position, 0.25f, _wallLayer);
         // if point overlap with wall or if it doesnt overlap with ground entres to flip
         if (groundCheck == false || wallCheck == true)
         {
@@ -68,25 +65,28 @@ public class Enemy : MonoBehaviour
             _isAttacking = false;
         }
 
+
         if (_isAttacking == true)
         {
             bool attack = Physics2D.OverlapCircle(_attackPoint.position, 0.25f, _playerLayer);
-
-            // TODO - fix enemy attack!...
-            if (attack == true && _attackDelay == true)
+            //Debug.Log("attack overlap circle = " + attack);
+            if (attack == true)
             {
-                _attackDelay = false;
-                _thisAnim.SetTrigger("Attack");
-                StartCoroutine(AttackDelay());
+                if (_readyToAttack)
+                {
+                    // TODO - take damage to player if he is in the front!!!
+                    _readyToAttack = false;
+                    _thisAnim.SetTrigger("Attack");
+                    StartCoroutine(AttackDelay());
+                    _isPatrolling = false;
+
+                }
+            }
+            else
+            {
+                _thisAnim.SetTrigger("Walk");
             }
         }
-    }
-
-    private IEnumerator AttackDelay()
-    {
-        yield return new WaitForSeconds(0.5f); // TODO - do something better here !
-
-        _attackDelay = true;
 
     }
 
@@ -98,6 +98,16 @@ public class Enemy : MonoBehaviour
         }
 
         _thisRB.velocity = new Vector2(transform.right.x * _walkSpeed, _thisRB.velocity.y);
+    }
+
+
+    private IEnumerator AttackDelay()
+    {
+        yield return new WaitForSeconds(_attackDelay); // TODO - do something better here !
+
+        _readyToAttack = true;
+        _isPatrolling = true;
+
     }
 
     private void HorizontalFlip()
@@ -130,7 +140,7 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawSphere(_attackPoint.position, 0.25f);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position+ new Vector3(0.0f, 1.0f, 0.0f), transform.position + new Vector3(-_agroDistance, 1.0f, 0.0f));
+        Gizmos.DrawLine(transform.position + new Vector3(0.0f, 1.0f, 0.0f), transform.position + new Vector3(-_agroDistance, 1.0f, 0.0f));
 
     }
 

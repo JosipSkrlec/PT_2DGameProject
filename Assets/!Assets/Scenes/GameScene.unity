@@ -1061,7 +1061,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147241850}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.48, y: 1.78, z: -1.3637782}
+  m_LocalPosition: {x: -13.14, y: 0.96, z: -1.3637782}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 497055293}
@@ -2139,6 +2139,7 @@ MonoBehaviour:
   _isAttacking: 0
   _walkSpeed: 1
   _agroDistance: 4
+  _attackDelay: 2
   _attackPoint: {fileID: 291310178}
   _wallPatrolPoint: {fileID: 468760123}
   _groundPatrolPoint: {fileID: 1736042700}
@@ -3779,7 +3780,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 872577945}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2096927, y: 1.25, z: -0.34977555}
+  m_LocalPosition: {x: -4.89, y: 1.25, z: -0.34977555}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1003411648}
@@ -8465,6 +8466,7 @@ MonoBehaviour:
   _isAttacking: 0
   _walkSpeed: 1
   _agroDistance: 4
+  _attackDelay: 2
   _attackPoint: {fileID: 1380959401}
   _wallPatrolPoint: {fileID: 514924664}
   _groundPatrolPoint: {fileID: 1032664562}
