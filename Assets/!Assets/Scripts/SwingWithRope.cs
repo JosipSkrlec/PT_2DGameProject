@@ -32,7 +32,7 @@ public class SwingWithRope : MonoBehaviour
         if (overlayColliders != null)
         {
             PlayerInside();
-            Player player = overlayColliders.GetComponent<Player>();
+            PlayerController player = overlayColliders.GetComponent<PlayerController>();
 
             if (player.SwingEnabled)
             {
