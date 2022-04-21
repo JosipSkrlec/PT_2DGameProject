@@ -10,11 +10,11 @@ public class PlayerController : MonoBehaviour
     public bool ConnectedToSwingPoint = false;
     [Space(5)]
     [Header("Player adjustable settings!")]
-    [SerializeField] private int _health = 100;//100
-    [SerializeField] private float _damage = 25.0f;
-    [SerializeField] private float _walkSpeed;//5.0f
-    [SerializeField] private float _jumpForce;//750.0f
-    [SerializeField] private float _swingForce;//6.0f
+    [SerializeField] private int _health = 100; //100
+    [SerializeField] private float _damage = 25.0f; // 25.0f
+    [SerializeField] private float _walkSpeed; //5.0f
+    [SerializeField] private float _jumpForce; //750.0f
+    [SerializeField] private float _swingForce; //6.0f
     [Space(5)]
     [SerializeField] private Transform _groundCheckPoints;
     [SerializeField] private LayerMask _groundLayer;
@@ -178,5 +178,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
         Gizmos.DrawSphere(_groundCheckPoints.position, 0.5f);
+
     }
+
+
 }

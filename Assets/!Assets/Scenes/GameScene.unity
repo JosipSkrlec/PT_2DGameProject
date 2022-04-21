@@ -1651,7 +1651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _connectionEnabled: 1
-  _swingConnectionRadius: 5
+  _swingConnectionRadius: 4.5
   _playerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -3746,7 +3746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _connectionEnabled: 1
-  _swingConnectionRadius: 5
+  _swingConnectionRadius: 5.5
   _playerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -8934,7 +8934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _connectionEnabled: 1
-  _swingConnectionRadius: 5
+  _swingConnectionRadius: 4.5
   _playerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -8949,7 +8949,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460081146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -42.73, y: 0.43, z: -1.3637782}
+  m_LocalPosition: {x: -42.73, y: -0.32, z: -1.3637782}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1802113870}
@@ -11772,7 +11772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _connectionEnabled: 1
-  _swingConnectionRadius: 5
+  _swingConnectionRadius: 4.5
   _playerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -11787,7 +11787,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1837022319}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.8, y: 0.71, z: -1.3637782}
+  m_LocalPosition: {x: -21.97, y: -0.61, z: -1.3637782}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 572831064}
@@ -15008,7 +15008,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0.25
+  m_LinearDrag: 0.35
   m_AngularDrag: 0.05
   m_GravityScale: 4
   m_Material: {fileID: 6200000, guid: 93a617f8cf513d145b3b12ddae29f217, type: 2}
