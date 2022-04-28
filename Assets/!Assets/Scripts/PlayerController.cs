@@ -10,11 +10,12 @@ public class PlayerController : MonoBehaviour
     public bool ConnectedToSwingPoint = false;
     [Space(5)]
     [Header("Player adjustable settings!")]
-    [SerializeField] private int _health = 100; //100
+    [SerializeField] private int _health = 100; // 100
+    [SerializeField] private int _lives = 3; // 3
     [SerializeField] private float _damage = 25.0f; // 25.0f
-    [SerializeField] private float _walkSpeed; //5.0f
-    [SerializeField] private float _jumpForce; //750.0f
-    [SerializeField] private float _swingForce; //6.0f
+    [SerializeField] private float _walkSpeed; // 5.0f
+    [SerializeField] private float _jumpForce; // 750.0f
+    [SerializeField] private float _swingForce; // 6.0f
     [Space(5)]
     [SerializeField] private Transform _groundCheckPoints;
     [SerializeField] private LayerMask _groundLayer;
@@ -35,6 +36,16 @@ public class PlayerController : MonoBehaviour
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
+
+        if (_lives >= 0)
+        {
+            PlayerUIController.Instance.UpdatePlayerHealthInUI(_lives);
+        }
+        else
+        {
+            _lives = 1;
+            PlayerUIController.Instance.UpdatePlayerHealthInUI(_lives);
+        }
 
         _playerMaxHealth = _health;
     }
@@ -151,6 +162,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void AttackFinished()
+    {
+
+    }
+
     private void HorizontalFlip()
     {
         transform.Rotate(0, 180, 0);
@@ -167,6 +183,22 @@ public class PlayerController : MonoBehaviour
         _health -= (int)damage;
 
         // TODO - do life taking if player health reaches < -0.0f
+        if (_health <= 0)
+        {
+            _lives -= 1;
+
+            if (_lives <= 0)
+            {
+                PlayerUIController.Instance.UpdatePlayerHealthInUI(0);
+                Debug.LogError("There is no more lives -> player is Death!");
+            }
+            else
+            {
+                _health = _playerMaxHealth;
+                PlayerUIController.Instance.UpdatePlayerHealthInUI(_lives);
+
+            }
+        }
 
         PlayerUIController.Instance.UpdatePlayerHealthUI(_playerMaxHealth,_health);
     }

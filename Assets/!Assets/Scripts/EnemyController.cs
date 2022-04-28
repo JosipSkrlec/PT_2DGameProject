@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private bool _isPatrolling = true;
-    [SerializeField] private bool _isAttacking = false;
+    [SerializeField] private bool isRayOnThePlayer = false;
     [Space(5)]
     [SerializeField] private int _health = 100;
     [SerializeField] private float _walkSpeed = 1.0f;
     [SerializeField] private float _agroDistance = 4.0f;
     [SerializeField] private float _enemyDamage = 20.0f;
-    [SerializeField] private float _attackDelay = 2.0f;
+    [SerializeField] private float _attackCooldown = 2.0f;
     [Space(5)]
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private Image _healthBarImage;
@@ -67,28 +67,28 @@ public class EnemyController : MonoBehaviour
         if (agroRaycast == true)
         {
             _walkSpeed = 2.0f;
-            _isAttacking = true;
+            isRayOnThePlayer = true;
         }
         else
         {
             _walkSpeed = 1.0f;
-            _isAttacking = false;
+            isRayOnThePlayer = false;
         }
 
 
-        if (_isAttacking == true)
+        if (isRayOnThePlayer == true)
         {
-            bool attack = Physics2D.OverlapCircle(_attackPoint.position, 0.25f, _playerLayer);
+            bool playerInFront = Physics2D.OverlapCircle(_attackPoint.position, 0.25f, _playerLayer);
             //Debug.Log("attack overlap circle = " + attack);
-            if (attack == true)
+            if (playerInFront == true)
             {
                 if (_readyToAttack)
                 {
                     // TODO - take damage to player if he is in the front!!!
-                    _playerController.TakeDamageToPlayer(_enemyDamage);
+                    //_playerController.TakeDamageToPlayer(_enemyDamage);
                     _readyToAttack = false;
                     _thisAnim.SetTrigger("Attack");
-                    StartCoroutine(AttackDelay());
+                    StartCoroutine(AttackCooldown());
                     _isPatrolling = false;
 
                 }
@@ -112,12 +112,24 @@ public class EnemyController : MonoBehaviour
     }
 
 
-    private IEnumerator AttackDelay()
+    public IEnumerator AttackCooldown()
     {
-        yield return new WaitForSeconds(_attackDelay); // TODO - do something better here !
-
+        yield return new WaitForSeconds(_attackCooldown);
+        Debug.Log("Damage taken!");
         _readyToAttack = true;
         _isPatrolling = true;
+
+    }
+
+    public void TakeDamageToPlayer()
+    {
+        bool playerInFront = Physics2D.OverlapCircle(_attackPoint.position, 0.25f, _playerLayer);
+
+        if (playerInFront)
+        {
+
+            _playerController.TakeDamageToPlayer(_enemyDamage);
+        }
 
     }
 

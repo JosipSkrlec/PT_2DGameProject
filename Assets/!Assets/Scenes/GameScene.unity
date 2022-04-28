@@ -2821,8 +2821,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0, g: 1, b: 0.5272734, a: 0.84313726}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -3004,6 +3004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthFillImage: {fileID: 345758749}
+  _livesTxt: {fileID: 554147341}
 --- !u!1 &436646329
 GameObject:
   m_ObjectHideFlags: 0
@@ -3291,7 +3292,7 @@ MonoBehaviour:
   _health: 100
   _walkSpeed: 1
   _agroDistance: 4
-  _enemyDamage: 15
+  _enemyDamage: 40
   _attackDelay: 2
   _playerController: {fileID: 5939731890553794292}
   _healthBarImage: {fileID: 357146871}
@@ -3826,7 +3827,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: x3 (life)
+  m_text: x
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: afbd88298c3004d40bba4201e58e6f03, type: 2}
   m_sharedMaterial: {fileID: 3730838743796190044, guid: afbd88298c3004d40bba4201e58e6f03, type: 2}
@@ -11154,8 +11155,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.9652157, g: 1, b: 0, a: 1}
+      key1: {r: 0.4811321, g: 0.23375759, b: 0.23375759, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -11163,7 +11164,7 @@ LineRenderer:
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
+      ctime1: 65342
       ctime2: 0
       ctime3: 0
       ctime4: 0
@@ -11559,8 +11560,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.8584906, g: 0.23891956, b: 0.782467, a: 1}
+      key1: {r: 0.5983212, g: 0.8018868, b: 0.34420612, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -11875,15 +11876,15 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0.34547982, g: 0.9245283, b: 0.2660199, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
+      ctime0: 193
       ctime1: 65535
       ctime2: 0
       ctime3: 0
@@ -14983,10 +14984,11 @@ MonoBehaviour:
   SwingEnabled: 0
   ConnectedToSwingPoint: 0
   _health: 100
+  _lives: 3
   _damage: 25
   _walkSpeed: 5
-  _jumpForce: 750
-  _swingForce: 6
+  _jumpForce: 800
+  _swingForce: 4
   _groundCheckPoints: {fileID: 675075659}
   _groundLayer:
     serializedVersion: 2
