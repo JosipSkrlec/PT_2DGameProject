@@ -24,18 +24,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask _enemyLayer;
 
     #region Private fields
-    private Collider2D[] groundCheckResults = new Collider2D[1];
-    private Rigidbody2D myRigidbody2D;
-    private Animator myAnimator;
-    private bool jump;
+    private Collider2D[] _groundCheckResults = new Collider2D[1];
+    private Rigidbody2D _myRigidbody2D;
+    private Animator _myAnimator;
+    private bool _jump;
     private int _playerMaxHealth;
-
+    private bool _isAttacking = false;
     #endregion
 
     private void Awake()
     {
-        myRigidbody2D = GetComponent<Rigidbody2D>();
-        myAnimator = GetComponent<Animator>();
+        _myRigidbody2D = GetComponent<Rigidbody2D>();
+        _myAnimator = GetComponent<Animator>();
 
         if (_lives >= 0)
         {
@@ -52,6 +52,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (_isAttacking == true)
+        {
+            return;
+        }
+
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         //jump = Input.GetButtonDown("Jump");
         //Debug.Log($"{nameof(horizontalInput)}:{horizontalInput}");
@@ -84,30 +89,35 @@ public class PlayerController : MonoBehaviour
 
             if (!ConnectedToSwingPoint)
             {
-                myAnimator.SetTrigger("Walk");
-                myRigidbody2D.velocity = new Vector2(horizontalInput * _walkSpeed, myRigidbody2D.velocity.y);
+                _myAnimator.SetTrigger("Walk");
+                _myRigidbody2D.velocity = new Vector2(horizontalInput * _walkSpeed, _myRigidbody2D.velocity.y);
             }
             else
             {
                 // TODO - potencially we can add swing animation!
-                myRigidbody2D.AddForce(transform.right * _swingForce); // swing add force!
+                _myRigidbody2D.AddForce(transform.right * _swingForce); // swing add force!
             }
 
         }
         else
         {
-            myAnimator.SetTrigger("Idle");
+            _myAnimator.SetTrigger("Idle");
         }
 
-        if (Input.GetKeyDown(KeyCode.C) && CheckGround() && ConnectedToSwingPoint == false)
+        if (Input.GetKeyDown(KeyCode.C) && CheckGroundedState() && ConnectedToSwingPoint == false)
         {
-            Attack();
-            myAnimator.SetTrigger("Attack");
+            if (_isAttacking == false)
+            {
+                _isAttacking = true;
+                _myAnimator.SetTrigger("Attack");
+
+            }
+            //TakeDamageToEnemy();
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && ConnectedToSwingPoint == false)
         {
-            jump = true;
+            _jump = true;
         }
         // swing mechanics
         if (Input.GetKey(KeyCode.LeftShift))
@@ -123,17 +133,17 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        bool isOnGround = CheckGround();
+        bool isOnGround = CheckGroundedState();
 
-        if (jump && isOnGround)
+        if (_jump && isOnGround)
         {
-            jump = false;
+            _jump = false;
             isOnGround = false;
             Jump();
         }
     }
 
-    private bool CheckGround()
+    private bool CheckGroundedState()
     {
         if (Physics2D.OverlapCircle(_groundCheckPoints.position, 0.5f, _groundLayer))
         {
@@ -147,10 +157,10 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        myRigidbody2D.AddForce(Vector2.up * _jumpForce);
+        _myRigidbody2D.AddForce(Vector2.up * _jumpForce);
     }
 
-    private void Attack()
+    public void TakeDamageToEnemy()
     {
         //bool attack = Physics2D.OverlapCircle(_attackPoint.position, 0.25f, _enemyLayer);
         Collider2D[] colliders = Physics2D.OverlapCircleAll(_attackPoint.position, 0.25f,_enemyLayer);
@@ -162,9 +172,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    // called on the end of animation as EVENT!
     public void AttackFinished()
     {
-
+        _isAttacking = false;
     }
 
     private void HorizontalFlip()
@@ -210,8 +221,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
         Gizmos.DrawSphere(_groundCheckPoints.position, 0.5f);
-
     }
-
 
 }
