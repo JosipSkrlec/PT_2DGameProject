@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
                 HorizontalFlip();
             }
 
-            if (!ConnectedToSwingPoint)
+            if (ConnectedToSwingPoint == false)
             {
                 _myAnimator.SetTrigger("Walk");
                 _myRigidbody2D.velocity = new Vector2(horizontalInput * _walkSpeed, _myRigidbody2D.velocity.y);
@@ -117,7 +117,18 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && ConnectedToSwingPoint == false)
         {
-            _jump = true;
+            //_jump = true;
+            bool isOnGround = CheckGroundedState();
+
+            if (isOnGround)
+            {
+                Jump();
+            }
+            else
+            {
+                Debug.Log("Player is not in the ground!");
+            }
+
         }
         // swing mechanics
         if (Input.GetKey(KeyCode.LeftShift))
@@ -133,19 +144,19 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        bool isOnGround = CheckGroundedState();
+        //bool isOnGround = CheckGroundedState();
 
-        if (_jump && isOnGround)
-        {
-            _jump = false;
-            isOnGround = false;
-            Jump();
-        }
+        //if (_jump && isOnGround)
+        //{
+        //    _jump = false;
+        //    isOnGround = false;
+        //    Jump();
+        //}
     }
 
     private bool CheckGroundedState()
     {
-        if (Physics2D.OverlapCircle(_groundCheckPoints.position, 0.5f, _groundLayer))
+        if (Physics2D.OverlapCircle(_groundCheckPoints.position, 0.15f, _groundLayer))
         {
             return true;
         }
@@ -220,7 +231,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        Gizmos.DrawSphere(_groundCheckPoints.position, 0.5f);
+        Gizmos.DrawSphere(_groundCheckPoints.position, 0.15f);
     }
 
 }

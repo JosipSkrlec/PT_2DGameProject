@@ -43,6 +43,7 @@ public class SwingWithRope : MonoBehaviour
 
                     return;
                 }
+            
                 player.ConnectedToSwingPoint = true;
                 float distance = Vector2.Distance(overlayColliders.transform.position, transform.position);
                 _distanceJoint2D.distance = distance;
@@ -50,6 +51,7 @@ public class SwingWithRope : MonoBehaviour
                 _distanceJoint2D.connectedBody = overlayColliders.transform.GetComponent<Rigidbody2D>();
                 // automatic disconnection!
                 //StartCoroutine(StopSwing());
+              
             }
             else
             {
