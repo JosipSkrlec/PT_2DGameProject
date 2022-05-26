@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _walkSpeed; // 5.0f
     [SerializeField] private float _jumpForce; // 750.0f
     [SerializeField] private float _swingForce; // 6.0f
+    [SerializeField] private int _collectedItems = 0;
     [Space(5)]
     [SerializeField] private Transform _groundCheckPoints;
     [SerializeField] private LayerMask _groundLayer;
@@ -37,6 +38,12 @@ public class PlayerController : MonoBehaviour
         _myRigidbody2D = GetComponent<Rigidbody2D>();
         _myAnimator = GetComponent<Animator>();
 
+        _playerMaxHealth = _health;
+        _collectedItems = 0;
+    }
+
+    private void Start()
+    {
         if (_lives >= 0)
         {
             PlayerUIController.Instance.UpdatePlayerHealthInUI(_lives);
@@ -46,9 +53,8 @@ public class PlayerController : MonoBehaviour
             _lives = 1;
             PlayerUIController.Instance.UpdatePlayerHealthInUI(_lives);
         }
-
-        _playerMaxHealth = _health;
     }
+
 
     void Update()
     {
@@ -156,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
     private bool CheckGroundedState()
     {
-        if (Physics2D.OverlapCircle(_groundCheckPoints.position, 0.15f, _groundLayer))
+        if (Physics2D.OverlapCircle(_groundCheckPoints.position, 0.15f, _groundLayer)) // TODO - maybe add wall layer here!
         {
             return true;
         }
@@ -164,6 +170,13 @@ public class PlayerController : MonoBehaviour
         {
             return false;
         }
+    }
+
+
+    public void CollectItem()
+    {
+        _collectedItems++;
+        PlayerUIController.Instance.RefreshCollectedItemUI(_collectedItems);
     }
 
     private void Jump()

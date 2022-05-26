@@ -1,9 +1,12 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIMenuController : MonoBehaviour
 {
+    public static UIMenuController Instance;
+
     [SerializeField] private float _screenAnimationSpeed = 0.25f;
     [Space(5)]
     [SerializeField] private CanvasGroup _mainMenu;
@@ -13,6 +16,13 @@ public class UIMenuController : MonoBehaviour
     [SerializeField] private CanvasGroup _audioSettings;
     [SerializeField] private CanvasGroup _videoSettings;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
 
     private void Start()
@@ -54,6 +64,7 @@ public class UIMenuController : MonoBehaviour
     {
         Application.Quit();
     }
+
 
 
 }

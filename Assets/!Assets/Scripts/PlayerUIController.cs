@@ -10,7 +10,8 @@ public class PlayerUIController : MonoBehaviour
 
     [SerializeField] private Image _healthFillImage;
     [SerializeField] private TMP_Text _livesTxt;
-
+    [Space(5)]
+    [SerializeField] private TMP_Text _collectedItemsTXT;
 
     // TODO - do health bar !
     private void Awake()
@@ -19,6 +20,11 @@ public class PlayerUIController : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        _collectedItemsTXT.text = "0";
     }
 
     public void UpdatePlayerHealthUI(float playerMaxHealth, float playerCurrentHealth)
@@ -32,6 +38,11 @@ public class PlayerUIController : MonoBehaviour
     public void UpdatePlayerHealthInUI(int playerLives)
     {
         _livesTxt.text = "x" + playerLives;
+    }
+
+    public void RefreshCollectedItemUI(int collectedItemsValue)
+    {
+        _collectedItemsTXT.text = collectedItemsValue.ToString();
     }
 
 }

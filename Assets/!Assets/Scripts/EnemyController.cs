@@ -115,7 +115,7 @@ public class EnemyController : MonoBehaviour
     public IEnumerator AttackCooldown()
     {
         yield return new WaitForSeconds(_attackCooldown);
-        Debug.Log("Damage taken!");
+        //Debug.Log("Damage taken!");
         _readyToAttack = true;
         _isPatrolling = true;
 
